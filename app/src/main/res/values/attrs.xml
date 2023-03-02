@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ClockCustomView">
+        <attr name="numberFont" format="reference"/>
+        <attr name="backgroundColor" format="color"/>
+        <attr name="borderColor" format="color"/>
+        <attr name="hourArrowColor" format="color"/>
+        <attr name="minuteArrowColor" format="color"/>
+        <attr name="secondArrowColor" format="color"/>
+        <attr name="nailColor" format="color"/>
+        <attr name="romanNumbers" format="boolean"/>
+        <attr name="numberRadiusCoef" format="float"/>
+        <attr name="centerCircleColor" format="color"/>
+    </declare-styleable>
+</resources>
