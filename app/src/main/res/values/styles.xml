@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomClock.Dark" parent="Theme.CustomViewClock">
+        <item name="backgroundColor">@color/almost_black</item>
+        <item name="borderColor">@color/black</item>
+        <item name="hourArrowColor">@color/grey</item>
+        <item name="minuteArrowColor">@color/grey</item>
+        <item name="secondArrowColor">@color/white</item>
+        <item name="nailColor">@color/white</item>
+    </style>
+
+    <style name="CustomClock.Sky" parent="Theme.CustomViewClock">
+        <item name="backgroundColor">#006DB5</item>
+        <item name="borderColor">#0149B5</item>
+        <item name="hourArrowColor">#FFEB3B</item>
+        <item name="minuteArrowColor">#FFEB3B</item>
+        <item name="secondArrowColor">#FFEB3B</item>
+        <item name="nailColor">@color/white</item>
+        <item name="centerCircleColor">#FFEB3B</item>
+    </style>
+
+</resources>

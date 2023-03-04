@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
+            app:startDestination="@id/defaultClockFragment2">
+    <fragment android:id="@+id/darkClockFragment3"
+              android:name="com.example.customviewclock.fragments.DarkClockFragment"
+              android:label="@string/dark_clock">
+        <action android:id="@+id/action_darkClockFragment3_to_redMolotClockFragment"
+                app:destination="@id/redMolotClockFragment"/>
+    </fragment>
+    <fragment android:id="@+id/defaultClockFragment2"
+              android:name="com.example.customviewclock.fragments.DefaultClockFragment"
+              android:label="@string/default_clock" tools:layout="@layout/fragment_dark_clock">
+        <action android:id="@+id/action_defaultClockFragment2_to_darkClockFragment3"
+                app:destination="@id/darkClockFragment3"/>
+    </fragment>
+    <fragment android:id="@+id/redMolotClockFragment"
+              android:name="com.example.customviewclock.fragments.RedMolotClockFragment"
+              android:label="@string/red_molot">
+        <action android:id="@+id/action_redMolotClockFragment_to_vladDesingnedFragment"
+                app:destination="@id/vladDesingnedFragment"/>
+    </fragment>
+    <fragment android:id="@+id/vladDesingnedFragment"
+              android:name="com.example.customviewclock.fragments.VladDesingnedFragment"
+              android:label="@string/vlad_des">
+        <action android:id="@+id/action_vladDesingnedFragment_to_skyClockFragment"
+                app:destination="@id/skyClockFragment"/>
+    </fragment>
+    <fragment android:id="@+id/skyClockFragment" android:name="com.example.customviewclock.fragments.SkyClockFragment"
+              android:label="@string/sky">
+        <action android:id="@+id/action_skyClockFragment_to_defaultClockFragment2"
+                app:destination="@id/defaultClockFragment2"/>
+    </fragment>
+</navigation>

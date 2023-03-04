@@ -1,3 +1,11 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">CustomViewClock</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="next">Next</string>
+    <string name="dark_clock">Dark Clock</string>
+    <string name="default_clock">Clock</string>
+    <string name="red_molot">Red Molot style</string>
+    <string name="roman">Roman Numbers</string>
+    <string name="sky">Sky Clock</string>
+    <string name="vlad_des">My friends design</string>
 </resources>

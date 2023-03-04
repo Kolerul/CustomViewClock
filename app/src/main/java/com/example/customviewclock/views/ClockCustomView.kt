@@ -9,7 +9,10 @@ import android.util.AttributeSet
 import android.view.View
 import com.example.customviewclock.R
 import java.util.Calendar.*
-import kotlin.math.*
+import kotlin.math.PI
+import kotlin.math.cos
+import kotlin.math.min
+import kotlin.math.sin
 
 
 class ClockCustomView(context: Context, attrs: AttributeSet? = null): View(context, attrs){
@@ -73,8 +76,39 @@ class ClockCustomView(context: Context, attrs: AttributeSet? = null): View(conte
         }
     }
 
-    override fun layout(l: Int, t: Int, r: Int, b: Int) {
-        super.layout(l, t, r, b)
+//    override fun layout(l: Int, t: Int, r: Int, b: Int) {
+//        super.layout(l, t, r, b)
+//        defineParametersOfClock()
+//    }
+
+//    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+//        val desiredWidth = suggestedMinimumWidth + paddingLeft + paddingRight
+//        val desiredHeight = suggestedMinimumHeight + paddingTop + paddingBottom
+//
+//        setMeasuredDimension(
+//            measureDimension(desiredWidth, widthMeasureSpec),
+//            measureDimension(desiredHeight, heightMeasureSpec)
+//        )
+//    }
+//
+//    private fun measureDimension(desiredSize: Int, measureSpec: Int): Int {
+//        var result: Int
+//        val specMode = MeasureSpec.getMode(measureSpec)
+//        val specSize = MeasureSpec.getSize(measureSpec)
+//        if (specMode == MeasureSpec.EXACTLY) {
+//            result = specSize
+//        } else {
+//            result = desiredSize
+//            if (specMode == MeasureSpec.AT_MOST) {
+//                result = Math.min(result, specSize)
+//            }
+//        }
+//
+//        return result
+//    }
+
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
         defineParametersOfClock()
     }
 
@@ -96,7 +130,8 @@ class ClockCustomView(context: Context, attrs: AttributeSet? = null): View(conte
         drawDial(canvas)
         drawNumbers(canvas)
         drawArrows(canvas)
-        postInvalidateDelayed(100)
+        //postInvalidateDelayed(100)
+        invalidate()
     }
 
     private fun drawNumbers(canvas: Canvas?){
@@ -161,7 +196,7 @@ class ClockCustomView(context: Context, attrs: AttributeSet? = null): View(conte
 
     private fun drawArrows(canvas: Canvas?){
         val currentTime = getInstance()
-        //val millis = currentTime[MILLISECOND]
+        val millis = currentTime[MILLISECOND]
         val seconds = currentTime[SECOND]
         val minutes = currentTime[MINUTE]
         val hours = currentTime[HOUR]
@@ -175,7 +210,7 @@ class ClockCustomView(context: Context, attrs: AttributeSet? = null): View(conte
 
         drawArrow(canvas, hours + minutes / 60f, 30, heightCoefficient = 0.8f, arrowColor = hourArrowColor)
         drawArrow(canvas, minutes + seconds / 60f, 6, widthCoefficient = 0.5f, arrowColor = minuteArrowColor)
-        drawArrow(canvas, seconds * 1f, 6, widthCoefficient = 0.25f, arrowColor = secondArrowColor)
+        drawArrow(canvas, seconds + millis / 1000f, 6, widthCoefficient = 0.25f, arrowColor = secondArrowColor)
 
         canvas?.drawCircle(centerX, centerY, radius * 0.1f, Paint().apply { color = centerCircleColor })
     }
