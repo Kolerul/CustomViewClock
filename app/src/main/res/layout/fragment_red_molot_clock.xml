@@ -34,9 +34,10 @@
             app:centerCircleColor="@color/white"
             app:romanNumbers="false"
             app:numberFont="@font/red_molot"
-            android:layout_marginTop="84dp" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" android:id="@+id/clockCustomView"
-            app:layout_constraintHorizontal_bias="0.0"/>
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.29"/>
     <Button
             android:text="@string/next"
             android:layout_width="match_parent"
@@ -45,7 +46,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.038"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.86"/>
+            app:layout_constraintVertical_bias="0.9"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
