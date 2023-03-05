@@ -10,24 +10,22 @@
 
 
     <com.example.customviewclock.views.ClockCustomView
-            android:layout_height="match_parent"
-            android:layout_width="500dp"
+            android:layout_height="184dp"
+            android:layout_width="182dp"
             app:layout_constraintTop_toTopOf="parent"
             style="@style/CustomClock.Sky"
             app:romanNumbers="true"
             app:numberFont="@font/blaka_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" android:id="@+id/clockCustomView"
-            app:layout_constraintHorizontal_bias="0.303"/>
+            app:layout_constraintHorizontal_bias="0.029" android:layout_marginTop="16dp"/>
     <Button
             android:text="@string/next"
             android:layout_width="48dp"
             android:layout_height="match_parent" android:id="@+id/next_button"
 
-            app:layout_constraintStart_toEndOf="@+id/clockCustomView"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.454" app:layout_constraintVertical_bias="0.0"/>
-
+            app:layout_constraintVertical_bias="0.0" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.950"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

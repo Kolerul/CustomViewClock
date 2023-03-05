@@ -1,4 +1,4 @@
-package com.example.customviewclock.views
+package com.example.customviewclock.views.unrealizedfetures
 
 import android.content.Context
 import android.graphics.Canvas
@@ -11,6 +11,10 @@ import kotlin.math.cos
 import kotlin.math.min
 import kotlin.math.sin
 
+/**
+ * Этот класс остался от альтернативного варианта реализации задания, которую я вероятно доделаю, но тогда
+ * этого комментария уже не будет.
+ */
 class ArrowsView(context: Context): View(context){
     private var centerX: Float = 0f
     private var centerY: Float = 0f
@@ -30,8 +34,6 @@ class ArrowsView(context: Context): View(context){
     public override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         drawArrows(canvas)
-        //canvas?.drawText("$centerX, $centerY", 100f, 100f, Paint().apply {  textSize = 100f})
-        //invalidate()
     }
 
     override fun layout(l: Int, t: Int, r: Int, b: Int) {

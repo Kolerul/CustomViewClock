@@ -11,5 +11,6 @@
         <attr name="romanNumbers" format="boolean"/>
         <attr name="numberRadiusCoef" format="float"/>
         <attr name="centerCircleColor" format="color"/>
+        <attr name="permanentSecondArrow" format="boolean"/>
     </declare-styleable>
 </resources>

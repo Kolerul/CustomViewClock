@@ -18,10 +18,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints"
-            app:layout_constraintBottom_toTopOf="@+id/clockCustomView" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintBottom_toTopOf="@+id/clockCustomView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="12dp"/>
     <com.example.customviewclock.views.ClockCustomView
-            android:layout_height="452dp"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             app:backgroundColor="@color/red"
@@ -33,7 +34,7 @@
             app:centerCircleColor="@color/white"
             app:romanNumbers="false"
             app:numberFont="@font/red_molot"
-            android:layout_marginTop="76dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="84dp" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" android:id="@+id/clockCustomView"
             app:layout_constraintHorizontal_bias="0.0"/>
     <Button
@@ -42,9 +43,9 @@
             android:layout_height="wrap_content" android:id="@+id/next_button"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            android:layout_marginTop="4dp" app:layout_constraintTop_toBottomOf="@+id/clockCustomView"
-    />
+            app:layout_constraintHorizontal_bias="0.038"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.86"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

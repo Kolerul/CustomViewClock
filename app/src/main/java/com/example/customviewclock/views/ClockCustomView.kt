@@ -9,16 +9,13 @@ import android.util.AttributeSet
 import android.view.View
 import com.example.customviewclock.R
 import java.util.Calendar.*
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.min
-import kotlin.math.sin
+import kotlin.math.*
 
 
 class ClockCustomView(context: Context, attrs: AttributeSet? = null): View(context, attrs){
 
+    //Декоративные параметры
     private val strokePaint: Paint
-    private val circlesInsteadofNumbersPaint: Paint
     private val customFont: Int
     private val nailBackgroundColor: Int
     private val borderColor: Int
@@ -27,7 +24,9 @@ class ClockCustomView(context: Context, attrs: AttributeSet? = null): View(conte
     private val secondArrowColor: Int
     private val numbersColor: Int
     private val centerCircleColor: Int
+    private val permanentSecondArrow: Boolean
 
+    //Параметры для отрисовки элементов
     private var centerX: Float = 0f
     private var centerY: Float = 0f
     private var radius: Float = 0f
@@ -38,13 +37,11 @@ class ClockCustomView(context: Context, attrs: AttributeSet? = null): View(conte
     private var borderWidth: Float = 0f
     private var numberRadiusCoef: Float = 0f
 
-    private var firstSecond: Int = -1
-    private var switchedSecond: Boolean = false
-
+    //Параметры для замены арабских цифр на римские
     private val romanNumbers = arrayOf("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII")
     private val roman: Boolean
 
-
+    //Инициализация настраиваемых параметров
     init {
         context.theme.obtainStyledAttributes(attrs, R.styleable.ClockCustomView, 0, 0).apply {
             try{
@@ -58,6 +55,7 @@ class ClockCustomView(context: Context, attrs: AttributeSet? = null): View(conte
                 customFont = getResourceId(R.styleable.ClockCustomView_numberFont, -1)
                 numberRadiusCoef = getFloat(R.styleable.ClockCustomView_numberRadiusCoef, 0.75f)
                 centerCircleColor = getColor(R.styleable.ClockCustomView_centerCircleColor, Color.GRAY)
+                permanentSecondArrow = getBoolean(R.styleable.ClockCustomView_permanentSecondArrow, true)
             }finally {
                 recycle()
             }
@@ -69,50 +67,43 @@ class ClockCustomView(context: Context, attrs: AttributeSet? = null): View(conte
             isAntiAlias = true
         }
 
-        circlesInsteadofNumbersPaint = Paint(0).apply {
-            color = Color.GRAY
-            style = Paint.Style.FILL_AND_STROKE
-            isAntiAlias = true
+    }
+
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val desiredWidth = 300
+
+        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
+        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
+        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
+
+        var width: Int
+        val height: Int
+
+        width = when(widthMode) {
+            MeasureSpec.EXACTLY -> widthSize
+            MeasureSpec.AT_MOST -> min(desiredWidth, widthSize)
+            else -> desiredWidth
         }
+
+
+        if (heightMode == MeasureSpec.EXACTLY) {
+            height = heightSize
+            if (widthMode == MeasureSpec.AT_MOST){
+                width = heightSize
+            }
+        } else {
+            height = width
+        }
+
+        defineParameters(width, height)
+
+        setMeasuredDimension(width, height)
     }
 
-//    override fun layout(l: Int, t: Int, r: Int, b: Int) {
-//        super.layout(l, t, r, b)
-//        defineParametersOfClock()
-//    }
-
-//    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-//        val desiredWidth = suggestedMinimumWidth + paddingLeft + paddingRight
-//        val desiredHeight = suggestedMinimumHeight + paddingTop + paddingBottom
-//
-//        setMeasuredDimension(
-//            measureDimension(desiredWidth, widthMeasureSpec),
-//            measureDimension(desiredHeight, heightMeasureSpec)
-//        )
-//    }
-//
-//    private fun measureDimension(desiredSize: Int, measureSpec: Int): Int {
-//        var result: Int
-//        val specMode = MeasureSpec.getMode(measureSpec)
-//        val specSize = MeasureSpec.getSize(measureSpec)
-//        if (specMode == MeasureSpec.EXACTLY) {
-//            result = specSize
-//        } else {
-//            result = desiredSize
-//            if (specMode == MeasureSpec.AT_MOST) {
-//                result = Math.min(result, specSize)
-//            }
-//        }
-//
-//        return result
-//    }
-
-    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        super.onLayout(changed, left, top, right, bottom)
-        defineParametersOfClock()
-    }
-
-    private fun defineParametersOfClock(){
+    //Определение размеров элемента
+    private fun defineParameters(width: Int, height: Int){
         centerX = width / 2f
         centerY = height / 2f
         radius = min(centerX, centerY) * 0.95f
@@ -123,17 +114,16 @@ class ClockCustomView(context: Context, attrs: AttributeSet? = null): View(conte
         borderWidth = radius * 0.1f
     }
 
-
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
         drawDial(canvas)
         drawNumbers(canvas)
         drawArrows(canvas)
-        //postInvalidateDelayed(100)
         invalidate()
     }
 
+    //Метод для отрисовки чисел на циферблате
     private fun drawNumbers(canvas: Canvas?){
         canvas?.apply {
             for (i in 1..12){
@@ -148,12 +138,12 @@ class ClockCustomView(context: Context, attrs: AttributeSet? = null): View(conte
                         typeface = resources.getFont(customFont)
                     textSize = numbersSize
                     textAlign = Paint.Align.CENTER
-                    rotation = angle.toFloat()
                 })
             }
         }
     }
 
+    //Метод отрисовки заднего фона часов и их границ
     private fun drawDial(canvas: Canvas?){
         canvas?.apply {
             drawCircle(centerX, centerY, radius, Paint().apply { color = nailBackgroundColor })
@@ -162,6 +152,7 @@ class ClockCustomView(context: Context, attrs: AttributeSet? = null): View(conte
                 strokeWidth = radius * 0.01f
                 color = numbersColor
                 style = Paint.Style.STROKE})
+
             for (i in 1..60){
                 val angle = i * 6 * PI / 180
                 val inX = (centerX + cos(angle) * innerRadius).toFloat()
@@ -177,12 +168,14 @@ class ClockCustomView(context: Context, attrs: AttributeSet? = null): View(conte
         }
     }
 
+    //Вспомогательные методы для расчета конца стрелок
     private fun calculateXArrowCoordinate(timeUnit: Float, degreesPerTick: Int)
     = cos((timeUnit - 15) * degreesPerTick * PI / 180)
 
     private fun calculateYArrowCoordinate(timeUnit: Float, degreesPerTick: Int)
     = sin((timeUnit - 15) * degreesPerTick * PI / 180)
 
+    //Метод отрисовки одной стрелки
     private fun drawArrow(canvas: Canvas?, timeUnit: Float, degreesPerTick: Int, widthCoefficient: Float = 1f,
                           heightCoefficient: Float = 1f, arrowColor: Int = Color.BLACK){
         canvas?.drawLine(centerX, centerY,
@@ -194,23 +187,19 @@ class ClockCustomView(context: Context, attrs: AttributeSet? = null): View(conte
             })
     }
 
+    //Метод, в котором определяется текущее время и вызывается метод для отрисовки часовой, минутной и секундной стрелок
     private fun drawArrows(canvas: Canvas?){
         val currentTime = getInstance()
         val millis = currentTime[MILLISECOND]
         val seconds = currentTime[SECOND]
         val minutes = currentTime[MINUTE]
         val hours = currentTime[HOUR]
-
-        if (firstSecond == -1){
-            firstSecond = seconds
-        }
-        if (seconds != firstSecond){
-            switchedSecond = true
-        }
+        val secondPart = if (permanentSecondArrow) millis / 1000f
+        else 0f
 
         drawArrow(canvas, hours + minutes / 60f, 30, heightCoefficient = 0.8f, arrowColor = hourArrowColor)
         drawArrow(canvas, minutes + seconds / 60f, 6, widthCoefficient = 0.5f, arrowColor = minuteArrowColor)
-        drawArrow(canvas, seconds + millis / 1000f, 6, widthCoefficient = 0.25f, arrowColor = secondArrowColor)
+        drawArrow(canvas, seconds + secondPart, 6, widthCoefficient = 0.25f, arrowColor = secondArrowColor)
 
         canvas?.drawCircle(centerX, centerY, radius * 0.1f, Paint().apply { color = centerCircleColor })
     }

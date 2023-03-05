@@ -10,8 +10,8 @@
 
 
     <com.example.customviewclock.views.ClockCustomView
-            android:layout_height="410dp"
-            android:layout_width="190dp"
+            android:layout_height="match_parent"
+            android:layout_width="187dp"
             app:layout_constraintTop_toTopOf="parent"
             app:backgroundColor="@color/dark_green"
             app:borderColor="@color/black"
@@ -26,27 +26,15 @@
             style="@style/CustomClock.Dark"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" android:id="@+id/clockCustomView"
-            app:layout_constraintHorizontal_bias="0.626" app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintHorizontal_bias="0.444" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.570"/>
     <Button
             android:text="@string/next"
             android:layout_width="48dp"
             android:layout_height="match_parent" android:id="@+id/next_button"
 
-            app:layout_constraintStart_toEndOf="@+id/clockCustomView"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.551" app:layout_constraintVertical_bias="0.0"/>
-    <TextView
-            android:text="@string/roman"
-            android:textColor="@color/gold"
-            android:textSize="30sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.498" android:layout_marginStart="72dp"
-            app:layout_constraintEnd_toStartOf="@+id/clockCustomView" app:layout_constraintHorizontal_bias="0.317"/>
-
+            app:layout_constraintVertical_bias="0.0" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.950"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
